@@ -23,13 +23,13 @@ API_KEY = os.getenv(TOKENS[2])
 API_ID = os.getenv(TOKENS[3])
 
 RETRY_PERIOD = 60 * 10
-COUNTRY = 'mx' # Change this to the relevant country code
+COUNTRY = 'mx'  # Change this to the relevant country code.
 ENDPOINT = 'https://api.adzuna.com/v1/api/jobs/' + COUNTRY + '/search/1'
 PARAMS = {
     'app_id': API_ID,
     'app_key': API_KEY,
-    'results_per_page': 5, # You can change this number based on your requirements
-    'what': 'python', # Replace this with the desired job title or keyword
+    'results_per_page': 5,  # You can change this number.
+    'what': 'python',  # Replace this with the desired job title or keyword.
     'sort_by': 'date',
     'content-type': 'application/json'
 }
@@ -100,7 +100,7 @@ def get_api_answer() -> Dict:
     return response.json()
 
 
-def parse_status(vacancy: Dict) -> str:
+def parse_vacancy(vacancy: Dict) -> str:
     """
     Извлекает из информации о конкретной вакансии нужные детали и формирует 
     сообщение для дальнейшей отправки.
@@ -186,7 +186,7 @@ def main() -> None:
 
             for vacancy in vacancies:
                 if last_vacancy_id is None or vacancy['id'] != last_vacancy_id:
-                    send_message(bot, parse_status(vacancy))
+                    send_message(bot, parse_vacancy(vacancy))
                     new_vacancies_found = True
                 else:
                     break
@@ -200,6 +200,7 @@ def main() -> None:
         except Exception as error:
             message = f'Сбой в работе программы: {error}'
             logging.error(message, exc_info=True)
+            send_message(bot, message)
         finally:
             time.sleep(RETRY_PERIOD)
 
