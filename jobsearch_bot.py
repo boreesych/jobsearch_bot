@@ -57,7 +57,7 @@ def send_message(bot, message: str) -> None:
             text=json.dumps(message, ensure_ascii=False)
         )
     except telegram.error.TelegramError as error:
-        logging.exception(
+        logging.error(
             f'При отправке в Telegram сообщения {message} '
             f'возникла ошибка: {error}'
         )
@@ -102,7 +102,7 @@ def get_api_answer() -> Dict:
 
 def parse_vacancy(vacancy: Dict) -> str:
     """
-    Извлекает из информации о конкретной вакансии нужные детали и формирует 
+    Извлекает из информации о конкретной вакансии нужные детали и формирует
     сообщение для дальнейшей отправки.
     """
     if 'title' not in vacancy:
@@ -118,7 +118,7 @@ def parse_vacancy(vacancy: Dict) -> str:
             'В ответе API отсутствуют ключ "location": '
             f'vacancy = {vacancy}.'
         )
-    
+
     location = vacancy['location']['display_name']
 
     if 'company' not in vacancy:
@@ -126,7 +126,7 @@ def parse_vacancy(vacancy: Dict) -> str:
             'В ответе API отсутствуют ключ "company": '
             f'vacancy = {vacancy}.'
         )
-    
+
     company = vacancy['company']['display_name']
 
     if 'redirect_url' not in vacancy:
@@ -134,7 +134,7 @@ def parse_vacancy(vacancy: Dict) -> str:
             'В ответе API отсутствуют ключ "redirect_url": '
             f'vacancy = {vacancy}.'
         )
-    
+
     redirect_url = vacancy['redirect_url']
 
     return (
@@ -190,13 +190,13 @@ def main() -> None:
                     new_vacancies_found = True
                 else:
                     break
-            
+
             if new_vacancies_found:
                 last_vacancy_id = vacancies[0]['id']
 
         except NotForSendingError as error:
             message = f'Сбой в работе программы: {error}'
-            logging.exception(message)
+            logging.error(message)
         except Exception as error:
             message = f'Сбой в работе программы: {error}'
             logging.error(message, exc_info=True)
