@@ -118,12 +118,34 @@ class TestHomework:
             'Не изменяйте переменную `RETRY_PERIOD`, её значение должно '
             f'быть равно `{self.RETRY_PERIOD}`.'
         )
-        student_params = getattr(homework_module, 'PARAMS')
+        student_params = homework_module.PARAMS
         missing_keys = self.PARAMS_KEYS - set(student_params)
         verbose_missing_keys = 'ключ' if len(missing_keys) < 2 else 'ключи'
         assert not missing_keys, (
             'Убедитесь, что словарь `PARAMS` содержит '
             f'{verbose_missing_keys} `{"`, `".join(missing_keys)}`.'
+        )
+
+        assert_msg_template = (
+            'Убедитесь, что в словаре `PARAMS` значением ключа `{key}` '
+            '{description}.'
+        )
+        result_per_page_key = 'results_per_page'
+        min_results_per_page = 5
+        assert student_params[result_per_page_key] >= min_results_per_page, (
+            assert_msg_template.format(
+                key=result_per_page_key,
+                description='является число не менее 5'
+            )
+        )
+
+        sort_by_key = 'sort_by'
+        expected_sort_by_val = 'date'
+        assert student_params[sort_by_key] == expected_sort_by_val, (
+            assert_msg_template.format(
+                key=sort_by_key,
+                description=f'является `{expected_sort_by_val}`'
+            )
         )
 
     def test_bot_init_not_global(self, homework_module):
