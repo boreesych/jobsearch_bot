@@ -20,7 +20,8 @@ A Telegram bot that periodically checks for new Python job postings using the [A
 
 Create a .env file in the project root:
 
-```TELEGRAM_TOKEN=your_telegram_bot_token
+```
+TELEGRAM_TOKEN=your_telegram_bot_token
 TELEGRAM_CHAT_ID=your_telegram_chat_id
 API_KEY=your_adzuna_api_key
 API_ID=your_adzuna_app_id
