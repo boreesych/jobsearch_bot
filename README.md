@@ -29,9 +29,9 @@ API_ID=your_adzuna_app_id
 ## Configuration
 
 You can customize the following in jobsearch_bot.py:
-	•	COUNTRY – change to your preferred country code (e.g., us, gb, de, etc.)
-	•	PARAMS['what'] – change the search query (e.g., 'python', 'data scientist')
-	•	RETRY_PERIOD – change the polling interval (default is 600 seconds)
+- COUNTRY – change to your preferred country code (e.g., us, gb, de, etc.)
+- PARAMS['what'] – change the search query (e.g., 'python', 'data scientist')
+- RETRY_PERIOD – change the polling interval (default is 600 seconds)
 
 ## Logging
 
